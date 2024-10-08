@@ -21,15 +21,13 @@ class Home {
     this.getReposInformation();
   }
   getUserInformations() {
-    //url: https://api.github.com/users/Damtab83
-
     fetch("https://api.github.com/users/Damtab83")
       .then((response) => response.json())
       .then((data) => {
-        this.updateHTMLIntro(data);
+        this.updateHTMLUser(data);
       })
       .catch((error) => {
-        console.log("ERREUR lors de l'appel API", error);
+        console.log("ERREUR lors de l'appel API getUserInformations", error);
       });
   }
 
@@ -42,10 +40,26 @@ class Home {
       .catch((error) => {
         console.log("ERREUR lors de l'appel API getRepoInformations", error);
       });
-    this.updateHTMLProjects(response.data);
+    const recentsProjects = response.data.slice(-3);
+    for (let i = 0; i < recentsProjects.length; i++) {
+      const languagesUrl = recentsProjects[i].languages_url;
+      const cleanedUrl = languagesUrl.replace("https://api.github.com", "");
+      const responseLanguages = await octokit
+        .request(`GET ${cleanedUrl}`)
+        .catch((error) => {
+          console.log(
+            "ERREUR lors de l'appel API getRepoInformations - languages",
+            error
+          );
+        });
+      const projectLanguages = responseLanguages.data;
+      recentsProjects[i].languages = projectLanguages;
+      // console.log(recentsProjects[i]);
+    }
+    this.updateHTMLProjects(recentsProjects);
   }
 
-  updateHTMLIntro(APIdata) {
+  updateHTMLUser(APIdata) {
     this.descriptionHTML.textContent = APIdata.bio;
     this.profilHTML?.setAttribute("href", APIdata.html_url);
     this.avatarHTML?.setAttribute("src", APIdata.avatar_url);
@@ -57,10 +71,24 @@ class Home {
       const project = projects[i];
       this.projectsTitle[htmlIndex].textContent = project.name;
       this.projectsDescription[htmlIndex].textContent = project.description;
-      const languages = project.topics;
-      console.log(languages);
+      this.createHTMLLanguageTag(
+        this.projectsTagContainer[i],
+        project.languages
+      );
       htmlIndex++;
     }
+  }
+
+  createHTMLLanguageTag(div, languages) {
+    console.log("div", div);
+    console.log("languages", languages);
+    const arrayLanguages = Object.keys(languages);
+    for (let i = 0; i < arrayLanguages.length; i++) {
+      const span = document.createElement("span");
+      span.textContent = arrayLanguages[i];
+      div.appendChild(span);
+    }
+    console.log("array", arrayLanguages);
   }
 }
 
