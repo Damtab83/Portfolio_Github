@@ -1,0 +1,20 @@
+@use "../abstracts/_variables" as var
+@use '../abstracts/_mixins' as mixin
+
+.header
+  background-color: var.$grey
+  border-radius: 0.5rem
+  padding: 0.75rem
+  display: flex
+  justify-content: space-between
+
+  &__back-home
+    @include mixin.circle(2rem)
+    background-color: var.$light-grey
+    display: flex
+    align-items: center
+    justify-content: center
+
+  &__icon
+    width: 1rem
+    height: 1rem
