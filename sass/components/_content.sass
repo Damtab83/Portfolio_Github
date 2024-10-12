@@ -1,0 +1,41 @@
+@use '../abstracts/_main' as abs
+  
+.content
+  background-color: abs.$grey
+  color: abs.$white
+  padding: abs.func-pixToRem(50) 6rem abs.func-pixToRem(32) 5rem
+  position: relative
+  
+  &__title
+    @include abs.mix-font(1.5rem, 500)
+    margin-bottom: abs.func-pixToRem(30)
+    margin-bottom: abs.func-pixToRem(30)
+    
+  &__subtitle
+    @include abs.mix-font(1rem, 500)
+    margin-bottom: abs.func-pixToRem(15)
+
+  &__description
+    @include abs.mix-font(0.75rem)
+    margin-bottom: abs.func-pixToRem(20)
+
+  &__listing
+    border: solid 2px abs.$light-grey
+    padding: abs.func-pixToRem(32)
+    border-radius: 1rem
+
+  &__myList
+    border-bottom: 1px solid abs.$white
+
+  &__goProjet
+    background-color: abs.$light-grey
+    padding: 0 3px
+    border-radius: 4px
+    margin-right: 3px
+    margin-top: 0.5rem
+
+  &__tag span
+    background-color: abs.$green
+    border-radius: 10px
+    padding: 1px 4px
+    margin: 0 3px 20px 0
