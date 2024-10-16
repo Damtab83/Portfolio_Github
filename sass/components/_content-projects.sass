@@ -1,10 +1,17 @@
 @use '../abstracts/_main' as abs
+
+.projectsMain
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-top: 0.3rem
   
-.content
+.projects
   background-color: abs.$grey
   color: abs.$white
-  padding: abs.func-pixToRem(50) 6rem abs.func-pixToRem(32) 5rem
-  position: relative
+  padding: abs.func-pixToRem(50) 7rem abs.func-pixToRem(32) 7rem
+  // position: relative
+  text-align: center
   
   &__title
     @include abs.mix-font(1.5rem, 500)
@@ -25,7 +32,8 @@
     border-radius: 1rem
 
   &__myList
-    border-bottom: 1px solid abs.$white
+    border: 2px solid abs.$white
+    margin: 0.5rem
 
   &__goProjet
     background-color: abs.$light-grey

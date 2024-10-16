@@ -33,7 +33,6 @@ class Home {
 
   async getReposInformation() {
     //API façon #2 avec Octokit
-    console.log(Octokit);
     const octokit = new Octokit();
     const response = await octokit
       .request("GET /users/Damtab83/repos")
@@ -54,7 +53,6 @@ class Home {
         });
       const projectLanguages = responseLanguages.data;
       recentsProjects[i].languages = projectLanguages;
-      // console.log(recentsProjects[i]);
     }
     this.updateHTMLProjects(recentsProjects);
   }
